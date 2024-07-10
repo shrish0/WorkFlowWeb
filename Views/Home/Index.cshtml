@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="flex row">
+        <ul class=" ">
+            <li class="nav-item"><a class="nav-link id="profile" >option1</a></li>
+            <li class=""><a class="nav-link id="email">option1</a></li>
+            <li class="nav-item"><a class="nav-link id="change-password">option1</a></li>
+            <li class="nav-item"><a class="nav-link id="two-factor">option1</a></li>
+            <li class="nav-item"><a class="nav-link id="personal-data">option1</a></li>
+        </ul>
+    </div>
+
+<div class="text-center flex">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+</div>
+
+@if (User.IsInRole(SD.Role_Admin))
+{
+    <partial name="_Admin" />
+}
+@if (User.IsInRole(SD.Role_Employee))
+{
+    <h2>normal</h2>
+}
