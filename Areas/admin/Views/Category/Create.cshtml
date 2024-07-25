@@ -1,0 +1,76 @@
+﻿@model WorkFlowWeb.Models.Category
+
+<partial name="_Notification" />
+<div class="row justify-content-center">
+    <div class="card shadow mt-4 border-0 col-lg-8 px-0">
+        <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+            <div class="row">
+                <div class="text-center col-12">
+                    <h2 class="text-white py-2">
+                        Create New Category
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <strong>There are some errors in your form:</strong>
+                        <ul>
+                            @foreach (var state in ViewData.ModelState.Values)
+                            {
+                                foreach (var error in state.Errors)
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="border p-3">
+                    <div class="row pb-2">
+                        <div class="py-2 col-12">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-12">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-12">
+                            <label asp-for="IsActive" class="control-label"></label>
+                            <select asp-for="IsActive" class="form-select">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6 col-md-6">
+                                <button type="submit" class="btn btn-primary form-control">
+                                    Create
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <a asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary form-control">Back to Categories</a>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="row mt-2"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

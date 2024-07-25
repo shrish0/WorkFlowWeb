@@ -1,0 +1,74 @@
+﻿@using WorkFlowWeb.Models
+@model List<ApplicationUser>
+
+<div class="card shadow m-4 border-0">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="text-center col-12">
+                <h2 class="text-white fs-2 fw-bold">
+                    User List
+                </h2>
+                </
+                div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search..." />
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a asp-controller="ManageUser" asp-action="Create" class="btn btn-primary"><i class="bi bi-patch-plus"></i> Create new user</a>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped" id="userTable">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.OrderBy(u => u.ApplicationUserId))
+                    {
+                        <tr>
+                            <td>@user.ApplicationUserId</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td class="description-cell">@user.Email</td>
+                            <td class="description-cell">@user.Address</td>
+                            <td>
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary mx-2">
+                                        <i class="bi bi-pen"></i> Edit
+                                    </a>
+                                    <a asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger mx-2">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @section Scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#searchInput').on('keyup', function () {
+                    var searchValue = $(this).val().toLowerCase();
+                    $('#userTable tbody tr').filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+                    });
+                });
+            });
+        </script>
+    }

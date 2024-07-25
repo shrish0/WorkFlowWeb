@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WorkFlowWeb.Data.DataAccess;
+using WorkFlowWeb.Models;
 using WorkFlowWeb.Utility;
+using WorkFlowWeb.Store;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +17,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Identity Configuration
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddUserStore<ApplicationUserStore>()
     .AddDefaultTokenProviders();
+
+
 
 // Email Sender Service
 builder.Services.AddScoped<IEmailSender, EmailSender>();

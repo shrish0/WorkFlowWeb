@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkFlowWeb.Data.DataAccess;
 
@@ -11,9 +12,11 @@ using WorkFlowWeb.Data.DataAccess;
 namespace WorkFlowWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240721191612_subcategory")]
+    partial class subcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +171,7 @@ namespace WorkFlowWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LastUserIds", (string)null);
+                    b.ToTable("LastUserIds");
                 });
 
             modelBuilder.Entity("WorkFlowWeb.Models.ApplicationUser", b =>
@@ -302,7 +305,7 @@ namespace WorkFlowWeb.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WorkFlowWeb.Models.SubCategory", b =>
@@ -347,7 +350,7 @@ namespace WorkFlowWeb.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

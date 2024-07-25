@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkFlowWeb.Data.DataAccess;
 
@@ -11,9 +12,11 @@ using WorkFlowWeb.Data.DataAccess;
 namespace WorkFlowWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240721060254_Category")]
+    partial class Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +171,7 @@ namespace WorkFlowWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LastUserIds", (string)null);
+                    b.ToTable("LastUserIds");
                 });
 
             modelBuilder.Entity("WorkFlowWeb.Models.ApplicationUser", b =>
@@ -268,8 +271,7 @@ namespace WorkFlowWeb.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -277,6 +279,7 @@ namespace WorkFlowWeb.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -286,6 +289,7 @@ namespace WorkFlowWeb.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("InactivatedBy")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -299,10 +303,7 @@ namespace WorkFlowWeb.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WorkFlowWeb.Models.SubCategory", b =>
@@ -326,6 +327,7 @@ namespace WorkFlowWeb.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -333,6 +335,7 @@ namespace WorkFlowWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InactivatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -340,14 +343,18 @@ namespace WorkFlowWeb.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SubCategoryId");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

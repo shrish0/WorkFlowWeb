@@ -1,0 +1,31 @@
+﻿@model WorkFlowWeb.Models.SubCategory
+
+<div class="card shadow mb-5 border-0">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="text-center col-12">
+                <h2 class="text-white fs-2 fw-bold">
+                    Delete SubCategory
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post">
+            <input asp-for="SubCategoryId" hidden />
+            <div class="mt-4 border p-3">
+                <div class="py-2">
+                    <p>Are you sure you want to delete the SubCategory <strong>@Model.Code</strong>?</p>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary form-control">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

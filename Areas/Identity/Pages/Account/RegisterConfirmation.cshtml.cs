@@ -11,16 +11,17 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using WorkFlowWeb.Models; // Make sure to include this namespace for ApplicationUser
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager; // Change IdentityUser to ApplicationUser
         private readonly IEmailSender _sender;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender sender) // Change IdentityUser to ApplicationUser
         {
             _userManager = userManager;
             _sender = sender;
@@ -59,7 +60,7 @@ namespace WorkFlowWeb.Areas.Identity.Pages.Account
             }
 
             Email = email;
-        
+
             DisplayConfirmAccountLink = true;
             if (DisplayConfirmAccountLink)
             {

@@ -1,0 +1,72 @@
+﻿@model WorkFlowWeb.Models.SubCategory
+
+<div class="card shadow mb-5 border-0">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="text-center col-12">
+                <h2 class="text-white fs-2 fw-bold">
+                    Edit SubCategory
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post">
+            <input asp-for="SubCategoryId" hidden />
+            <div class="mt-4 border p-3">
+                <div class="py-2 col-12">
+                    <label class="ms-2">Code</label>
+                    <input asp-for="Code" class="form-control border-0 shadow" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="py-2 col-12">
+                    <label class="ms-2">Description</label>
+                    <textarea asp-for="Description" class="form-control border-0 shadow"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="py-2 col-12">
+                    <label class="ms-2">Category</label>
+                    <select asp-for="CategoryId" class="form-select">
+                        <option value="">Select Category</option>
+                        @foreach (var category in (List<SelectListItem>)ViewData["Categories"])
+                        {
+                            @if (category.Selected)
+                            {
+                                <option value="@category.Value" selected>
+                                    @category.Text
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@category.Value">
+                                    @category.Text
+                                </option>
+                            }
+                            
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="py-2 col-6">
+                    <label asp-for="IsActive" class="control-label"></label>
+                    <select asp-for="IsActive" class="form-select">
+                        <option value="true" >Active</option>
+                        <option value="false" >Inactive</option>
+                    </select>
+                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Save</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary form-control">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
