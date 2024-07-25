@@ -4,20 +4,12 @@
 
 <div >
 <div class="row">
-        <div class="col-md-3 col-12 shadow border p-3 position-relative">
+        <div class="col-md-3 col-12 shadow border p-3 position-relative bg-dark">
             @if (User.IsInRole(SD.Role_Admin))
             {
                 <partial name="_Admin" />
             }
-            <a asp-area="admin" asp-controller="Admin" asp-action="Index" class="col-12 col-md bg-secondary mx-1 my-3 d-flex align-items-center justify-content-center rounded text-white-50" style="height:50px;">
-                Index1
-            </a>
-            <a asp-area="admin" asp-controller="Admin" asp-action="Privacy" class="col-12 col-md bg-light mx-1 my-3  d-flex align-items-center justify-content-center rounded" style="height:50px;">
-                Index1
-            </a>
-            <a asp-area="admin" asp-controller="Admin" asp-action="Privacy" class="col-12 col-md bg-secondary mx-1 my-3  d-flex align-items-center justify-content-center rounded text-white-50" style="height:50px;">
-                Index1
-            </a>
+          
     </div>
         <div class="col-md-9 col-12 text-center">
     <h1 class="display-4">Welcome</h1>
