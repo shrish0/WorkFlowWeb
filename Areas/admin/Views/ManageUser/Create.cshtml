@@ -1,56 +1,90 @@
 ﻿@model WorkFlowWeb.ViewModels.UserViewModel
-@{
-    ViewData["Title"] = "Create User";
-}
 
-<h1>Create User</h1>
+<div class="row justify-content-center">
+    <div class="card shadow mt-4 border-0 col-lg-8 px-0">
+        <div class="card-header bg-secondary bg-gradient m-lg-0">
+            <div class="row">
+                <div class="text-center col-12">
+                    <h2 class="text-white py-2">
+                        Create New User
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <strong>There are some errors in your form:</strong>
+                        <ul>
+                            @foreach (var state in ViewData.ModelState.Values)
+                            {
+                                foreach (var error in state.Errors)
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="border p-1">
+                    <div class="row pb-2">
+                        <div class="py-2 col-12">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="py-2 col-6">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+                        <div class="py-2 col-6">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-6">
+                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-6">
+                            <label asp-for="Role" class="control-label"></label>
+                            <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-12">
+                            <label asp-for="Address" class="control-label col-12"></label>
+                            <textarea asp-for="Address" class="form-control"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6 col-md-6">
+                                <button type="submit" class="btn btn-primary form-control">
+                                    Save
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <a asp-controller="ManageUser" asp-action="Index" class="btn btn-outline-secondary form-control">Back to Index</a>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="row mt-2"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <label asp-for="FirstName" class="control-label"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="LastName" class="control-label"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Address" class="control-label"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Role" class="control-label"></label>
-        <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+

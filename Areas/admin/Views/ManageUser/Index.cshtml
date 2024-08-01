@@ -31,6 +31,7 @@
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Address</th>
+                        <th>Created by</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                             <td>@user.LastName</td>
                             <td class="description-cell">@user.Email</td>
                             <td class="description-cell">@user.Address</td>
+                            <td>@(string.IsNullOrEmpty(user.CreatedBy) ? "Primary Account" : user.CreatedBy)</td>
                             <td>
                                 <div class="w-100 btn-group" role="group">
                                     <a asp-controller="ManageUser" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary mx-2">

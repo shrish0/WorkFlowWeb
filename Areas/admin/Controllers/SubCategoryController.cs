@@ -309,5 +309,96 @@ namespace WorkFlowWeb.Areas.Admin.Controllers
                 }
             }
         }
+        // ImportFromExcel method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ImportFromExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["Error"] = "Please select a valid Excel file.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    await file.CopyToAsync(stream);
+                    using (var workbook = new XLWorkbook(stream))
+                    {
+                        var worksheet = workbook.Worksheet(1);
+                        var firstRow = worksheet.Row(1);
+
+                        // Validate headers
+                        if (!IsValidHeader(firstRow))
+                        {
+                            TempData["Error"] = "The Excel file is not in the correct format. Please ensure the headers are: Code, Description, Category Code, Status.";
+                            return RedirectToAction(nameof(Index));
+                        }
+
+                        var rows = worksheet.RowsUsed().Skip(1); // Skip the header row
+
+                        foreach (var row in rows)
+                        {
+                            var code = row.Cell(1).GetValue<string>();
+                            var description = row.Cell(2).GetValue<string>();
+                            var categoryCode = row.Cell(3).GetValue<string>();
+                            var status = row.Cell(4).GetValue<string>();
+
+                            // Check if the category is active
+                            var category = await _db.Categories.FirstOrDefaultAsync(c => c.Code == categoryCode && c.IsActive);
+                            if (category == null)
+                            {
+                                // Skip this subcategory if the category is not active
+                                continue;
+                            }
+
+                            // Check if the subcategory already exists
+                            var existingSubCategory = await _db.SubCategories.FirstOrDefaultAsync(s => s.Code == code);
+                            if (existingSubCategory != null)
+                            {
+                                // Update existing subcategory
+                                existingSubCategory.Description = description;
+                                existingSubCategory.IsActive = status == "Active";
+                                existingSubCategory.ModifiedAt = DateTime.UtcNow; // Update the modified date
+                            }
+                            else
+                            {
+                                // Add new subcategory
+                                var subCategory = new SubCategory
+                                {
+                                    Code = code,
+                                    Description = description,
+                                    CategoryId = category.CategoryId,
+                                    IsActive = status == "Active",
+                                    CreatedAt = DateTime.UtcNow,
+                                    ModifiedAt = DateTime.UtcNow
+                                };
+                                _db.SubCategories.Add(subCategory);
+                            }
+                        }
+
+                        await _db.SaveChangesAsync();
+                    }
+                }
+
+                TempData["Success"] = "SubCategories imported successfully.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"An error occurred while importing data: {ex.Message}";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool IsValidHeader(IXLRow headerRow)
+        {
+            return headerRow.Cell(1).GetValue<string>().Trim() == "Code"
+                && headerRow.Cell(2).GetValue<string>().Trim() == "Description"
+                && headerRow.Cell(3).GetValue<string>().Trim() == "Category Code"
+                && headerRow.Cell(4).GetValue<string>().Trim() == "Status";
+        }
     }
 }
