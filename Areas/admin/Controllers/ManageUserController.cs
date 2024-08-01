@@ -7,6 +7,7 @@ using WorkFlowWeb.Data.DataAccess;
 using WorkFlowWeb.Models;
 using WorkFlowWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace WorkFlowWeb.Areas.Admin.Controllers
 {
@@ -73,6 +74,8 @@ namespace WorkFlowWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var creator = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -82,9 +85,10 @@ namespace WorkFlowWeb.Areas.Admin.Controllers
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber,
                     Created = DateTime.Now,
-                    Modified = DateTime.Now
+                    Modified = DateTime.Now,
+                    CreatedBy=creator.ApplicationUserId
                 };
-
+               
                 var result = await _userManager.CreateAsync(user, "M(Zr[7J\\<?5$UYh{g:Bzxw'");
                 if (result.Succeeded)
                 {
