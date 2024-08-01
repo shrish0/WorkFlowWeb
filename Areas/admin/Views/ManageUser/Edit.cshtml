@@ -1,0 +1,59 @@
+﻿@model WorkFlowWeb.Models.ApplicationUser
+
+
+<div class="row  justify-content-center">
+    <div class="card shadow mt-4 border-0 px-0 col-sm-11 col-8 col-lg-8">
+        <div class="card-header bg-secondary bg-gradient m-lg-0 ">
+            <div class="row">
+                <div class=" text-center col-12">
+                    <h2 class="text-white  fw-bolder">
+                        EDIT APPLICATION USER
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="mt-4 border p-3 row">
+                <input asp-for="Id" hidden />
+                <div class="py-2 col-6">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                </div>
+                <div class="py-2 col-6">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                </div>
+                <div class="py-2 col-6">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                </div>
+                <div class="py-2 col-6">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 col-md-6">
+                        <button type="submit" class="btn btn-primary form-control">
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <a asp-controller="ManageUser" asp-action="Index" class="btn btn-outline-secondary form-control">Back to Index</a>
+                    </div>
+                </div>
+                    <div asp-validation-summary="ModelOnly" class="row mt-2 "></div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

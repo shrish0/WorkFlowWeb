@@ -65,7 +65,7 @@ namespace WorkFlowWeb.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email not sent. Please check your email.");
+                TempData["error"] = "please enter valid email";
                 return Page();
             }
 
@@ -81,8 +81,7 @@ namespace WorkFlowWeb.Areas.Identity.Pages.Account
                 Input.Email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            TempData["success"] = "Verification email sent. Please check your email.";
             return Page();
         }
     }

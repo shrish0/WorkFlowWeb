@@ -1,80 +1,56 @@
-﻿@model WorkFlowWeb.Models.ApplicationUser
+﻿@model WorkFlowWeb.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Create User";
+}
 
-<div class="card shadow mt-4 border-0">
-    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
-        <div class="row">
-            <div class="text-center col-12">
-                <h2 class="text-white py-2">
-                    Create New User
-                </h2>
-            </div>
-        </div>
+<h1>Create User</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <div class="border p-3">
-                <div class="row pb-2">
-                    <div class="py-2 col-12">
-                        <label class="ms-2">First Name</label>
-                        <input asp-for="FirstName" class="form-control border-0 shadow" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="py-2 col-12">
-                        <label class="ms-2">Last Name</label>
-                        <input asp-for="LastName" class="form-control border-0 shadow" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="py-2 col-12">
-                        <label class="ms-2">Email</label>
-                        <input asp-for="Email" class="form-control border-0 shadow" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="py-2 col-12">
-                        <label class="ms-2">Address</label>
-                        <input asp-for="Address" class="form-control border-0 shadow" />
-                        <span asp-validation-for="Address" class="text-danger"></span>
-                    </div>
-                    <div class="py-2 col-12">
-                        <label class="ms-2">Phone Number</label>
-                        <input asp-for="PhoneNumber" class="form-control border-0 shadow" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                    @* <div class="py-2 col-12">
-                        <label class="ms-2">Confirm Password</label>
-                        <input asp-for="Password" type="password" class="form-control border-0 shadow" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div> 
-                    <div class="py-2 col-12">
-                        <label class="ms-2">Role</label>
-                        <select asp-for="Role" class="form-select border-0 shadow">
-                            <option value="">Select Role</option>
-                            @foreach (var role in ViewBag.Roles)
-                            {
-                                <option value="@role.Name">@role.Name</option>
-                            }
-                        </select>
-                        <span asp-validation-for="Role" class="text-danger"></span>
-                    </div>
-                    *@
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">
-                            Create
-                        </button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-area="Admin" asp-controller="ManageUser" asp-action="Index" class="btn btn-outline-secondary form-control">Back to List</a>
-                    </div>
-                </div>
-                <div asp-validation-summary="ModelOnly" class="row mt-2"></div>
-            </div>
-        </form>
+
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
-</div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Role" class="control-label"></label>
+        <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles"></select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
 
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

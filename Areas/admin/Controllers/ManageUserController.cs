@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkFlowWeb.Data.DataAccess;
 using WorkFlowWeb.Models;
+using WorkFlowWeb.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WorkFlowWeb.Areas.admin
+namespace WorkFlowWeb.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")] // Restrict access to Admin role only
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class ManageUserController : Controller
     {
@@ -17,26 +19,26 @@ namespace WorkFlowWeb.Areas.admin
         private readonly ILogger<ManageUserController> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
-        public ManageUserController(ApplicationDbContext context,
-                                UserManager<ApplicationUser> userManager,
-                                RoleManager<IdentityRole> roleManager,
-                                ILogger<ManageUserController> logger,
-                                IEmailSender emailSender)
+
+        public ManageUserController(
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ILogger<ManageUserController> logger,
+            IEmailSender emailSender)
         {
+            _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
-            _context = context;
         }
 
-        // GET: /Admin/ApplicationUser/
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
         }
 
-        // GET: /Admin/ApplicationUser/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -54,42 +56,53 @@ namespace WorkFlowWeb.Areas.admin
             return View(applicationUser);
         }
 
-        // GET: /Admin/ApplicationUser/Create
         public async Task<IActionResult> Create()
         {
             var roles = await _roleManager.Roles.ToListAsync();
-            ViewBag.Roles = roles;
+            ViewBag.Roles = roles.Select(role => new SelectListItem
+            {
+                Value = role.Name,
+                Text = role.Name
+            }).ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ApplicationUser user, string password, string role)
+        public async Task<IActionResult> Create(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                user.Created = DateTime.Now;
-                user.Modified = DateTime.Now;
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
+                    Created = DateTime.Now,
+                    Modified = DateTime.Now
+                };
 
-                var result = await _userManager.CreateAsync(user, password);
+                var result = await _userManager.CreateAsync(user, "M(Zr[7J\\<?5$UYh{g:Bzxw'");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    if (!string.IsNullOrEmpty(role))
+                    if (!string.IsNullOrEmpty(model.Role))
                     {
-                        var roleResult = await _userManager.AddToRoleAsync(user, role);
+                        var roleResult = await _userManager.AddToRoleAsync(user, model.Role);
                         if (!roleResult.Succeeded)
                         {
                             AddErrors(roleResult);
                         }
                     }
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(nameof(ConfirmEmail), "Admin", new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{callbackUrl}'>clicking here</a>.");
+                    String emailContent = GenerateEmailContent(user.FirstName, user.Email);
+                    await _emailSender.SendEmailAsync(model.Email,
+                       "Confirm your email",
+                        emailContent);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -97,11 +110,14 @@ namespace WorkFlowWeb.Areas.admin
             }
 
             var roles = await _roleManager.Roles.ToListAsync();
-            ViewBag.Roles = roles;
-            return View(user);
+            ViewBag.Roles = roles.Select(role => new SelectListItem
+            {
+                Value = role.Name,
+                Text = role.Name
+            }).ToList();
+            return View(model);
         }
 
-        // GET: /Admin/ApplicationUser/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -117,7 +133,6 @@ namespace WorkFlowWeb.Areas.admin
             return View(applicationUser);
         }
 
-        // POST: /Admin/ApplicationUser/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Address,Email,PhoneNumber")] ApplicationUser applicationUser)
@@ -131,6 +146,7 @@ namespace WorkFlowWeb.Areas.admin
             {
                 try
                 {
+                    applicationUser.Modified = DateTime.Now;
                     _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
                 }
@@ -150,14 +166,12 @@ namespace WorkFlowWeb.Areas.admin
             return View(applicationUser);
         }
 
-        // GET: /Admin/ApplicationUser/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
             var applicationUser = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (applicationUser == null)
@@ -168,7 +182,6 @@ namespace WorkFlowWeb.Areas.admin
             return View(applicationUser);
         }
 
-        // POST: /Admin/ApplicationUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -179,24 +192,36 @@ namespace WorkFlowWeb.Areas.admin
             return RedirectToAction(nameof(Index));
         }
 
+        public string GenerateEmailContent(string userName, string email)
+         {
+                return $@"
+                <p>Hi {userName},</p>
+
+                <p>Congratulations! your account on the Maharshi Ayurveda  has been created successfully.</p>
+
+                <p><b>To activate your account do the following step:</b></p>
+
+                <p>Please find below your login credentials. You can save it for logging into the portal for tracking your application status and other updates to your profile.</p>
+
+                <p><b>Portal URL:</b> <a href='https://localhost:7092/Identity/Account/Login'>click here to login</a></p>
+                <p><b>User Name:</b> {email}</p>
+                <p><b>Password:</b> Please login using your password. If you are logging in first time, please follow the below steps to reset your password:</p>
+                <ol>
+                    <li>Open portal login page</li>
+                    <li>Activate your account by clicking on Resend Email confirmation</li>
+                    <li>Go to mail to activate your account</li>
+                    <li>After that Click on Forget Password</li>
+                    <li>To set a new Password</li>
+                </ol>
+
+                <p>Best regards,</p>
+                <p>Maharshi Ayurveda Team</p>
+                ";
+        }
+
         private bool ApplicationUserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
-        }
-
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
-        {
-            if (userId == null || code == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
-            }
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         private void AddErrors(IdentityResult result)
@@ -206,6 +231,5 @@ namespace WorkFlowWeb.Areas.admin
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
-
     }
 }
