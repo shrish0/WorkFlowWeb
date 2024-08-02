@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using WorkFlowWeb.Data.DataAccess;
-using WorkFlowWeb.Models;
+using WorkFlow.Models;
+using WorkFlow.DataAccess.Data;
+
 
 namespace WorkFlowWeb.Areas.admin.Controllers
 {

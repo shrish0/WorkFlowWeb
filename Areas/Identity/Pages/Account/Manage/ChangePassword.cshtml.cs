@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using WorkFlowWeb.Models; // Adjust this namespace if necessary
+using WorkFlow.Models; // Adjust this namespace if necessary
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account.Manage
 {

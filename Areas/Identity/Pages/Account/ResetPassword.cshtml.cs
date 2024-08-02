@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using WorkFlowWeb.Models;
+using WorkFlow.Models;
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account
 {

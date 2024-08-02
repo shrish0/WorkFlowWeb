@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using WorkFlowWeb.Data.DataAccess;
-using WorkFlowWeb.Models;
+using WorkFlow.DataAccess.Data;
+using WorkFlow.Models;
 
 
 namespace WorkFlowWeb.Store {

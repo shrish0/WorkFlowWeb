@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WorkFlowWeb.Models;
+using WorkFlow.Models;
 
 namespace WorkFlowWeb.Controllers
 {

@@ -20,8 +20,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using WorkFlowWeb.Models;
-using WorkFlowWeb.Utility;
+using WorkFlow.Models;
+using WorkFlow.Utility;
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account
 {

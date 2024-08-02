@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using WorkFlowWeb.Models; // Make sure to include this namespace for ApplicationUser
+using WorkFlow.Models; // Make sure to include this namespace for ApplicationUser
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account
 {

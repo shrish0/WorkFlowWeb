@@ -22,7 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <ProjectReference Include="..\WorkFlow.DataAccess\WorkFlow.DataAccess.csproj" />
+    <ProjectReference Include="..\WorkFlow.Models\WorkFlow.Models.csproj" />
+    <ProjectReference Include="..\WorkFlow.Utility\WorkFlow.Utility.csproj" />
+    <ProjectReference Include="..\WorkFlow.ViewModels\WorkFlow.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

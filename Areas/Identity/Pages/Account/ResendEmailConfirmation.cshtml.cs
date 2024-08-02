@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using WorkFlowWeb.Models; // Ensure this namespace is included for ApplicationUser
+using WorkFlow.Models; // Ensure this namespace is included for ApplicationUser
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account
 {

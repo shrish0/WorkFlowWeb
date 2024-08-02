@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WorkFlowWeb.ViewModels.SubCategoryViewModel>
+﻿@model IEnumerable<WorkFlow.ViewModels.SubCategoryViewModel>
 
 <div class="card shadow mb-5 border-0">
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
@@ -9,12 +9,19 @@
                 </h2>
             </div>
             <div class="w-100 btn-group" role="group">
-                <a asp-controller="SubCategory" asp-action="ExportToExcel" class="btn btn-primary mx-2">
-                    <i class="bi bi-cloud-arrow-down"></i>  Download
-                </a>
-                <a asp-controller="SubCategory" asp-action="" class="btn btn-danger mx-2">
-                    <i class="bi bi-cloud-arrow-up"></i>  Upload
-                </a>
+                <form asp-controller="Category" asp-action="ImportFromExcel" enctype="multipart/form-data" method="post" class="d-inline w-100">
+                    <div class="w-100 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="ExportToExcel" class="btn btn-primary mx-2">
+                            <i class="bi bi-cloud-arrow-down"></i>  Download
+                        </a>
+
+                        <input type="file" name="file" accept=".xlsx" class="btn btn-dark mx-2" />
+                        <button type="submit" class="btn btn-danger mx-2">
+                            <i class="bi bi-cloud-arrow-up"></i> Upload
+                        </button>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>

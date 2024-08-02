@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkFlowWeb.Data.DataAccess;
-using WorkFlowWeb.Models;
-using WorkFlowWeb.ViewModels;
+using WorkFlow.DataAccess.Data;
+using WorkFlow.Models;
+using WorkFlow.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 

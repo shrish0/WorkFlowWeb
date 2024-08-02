@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WorkFlowWeb.Models;
+using WorkFlow.Models;
 
 namespace WorkFlowWeb.Areas.Identity.Pages.Account.Manage
 {
