@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkFlow.DataAccess\WorkFlow.DataAccess.csproj" />
     <ProjectReference Include="..\WorkFlow.Models\WorkFlow.Models.csproj" />
+    <ProjectReference Include="..\WorkFlow.Stores\WorkFlow.Stores.csproj" />
     <ProjectReference Include="..\WorkFlow.Utility\WorkFlow.Utility.csproj" />
     <ProjectReference Include="..\WorkFlow.ViewModels\WorkFlow.ViewModels.csproj" />
   </ItemGroup>

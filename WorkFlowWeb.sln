@@ -5,13 +5,15 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlowWeb", "WorkFlowWeb.csproj", "{53600A77-2CFF-46D5-B8D5-85A40E959B86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow.Models", "..\WorkFlow.Models\WorkFlow.Models.csproj", "{B0BBF1DA-2BD2-477B-95DD-D324C6354C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow.Models", "..\WorkFlow.Models\WorkFlow.Models.csproj", "{B0BBF1DA-2BD2-477B-95DD-D324C6354C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow.Utility", "..\WorkFlow.Utility\WorkFlow.Utility.csproj", "{810E79C2-36F6-4190-870A-53A6C59312EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow.Utility", "..\WorkFlow.Utility\WorkFlow.Utility.csproj", "{810E79C2-36F6-4190-870A-53A6C59312EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow.ViewModels", "..\WorkFlow.ViewModels\WorkFlow.ViewModels.csproj", "{E4253191-4375-4A11-BBB7-7559EF6A0508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow.ViewModels", "..\WorkFlow.ViewModels\WorkFlow.ViewModels.csproj", "{E4253191-4375-4A11-BBB7-7559EF6A0508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow.DataAccess", "..\WorkFlow.DataAccess\WorkFlow.DataAccess.csproj", "{5ACF7D89-DEC9-40F1-B24B-E5D94088C4D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkFlow.DataAccess", "..\WorkFlow.DataAccess\WorkFlow.DataAccess.csproj", "{5ACF7D89-DEC9-40F1-B24B-E5D94088C4D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow.Stores", "..\WorkFlow.Stores\WorkFlow.Stores.csproj", "{FD420E0C-68E3-42C5-97F8-570E848C5441}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5ACF7D89-DEC9-40F1-B24B-E5D94088C4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ACF7D89-DEC9-40F1-B24B-E5D94088C4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ACF7D89-DEC9-40F1-B24B-E5D94088C4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD420E0C-68E3-42C5-97F8-570E848C5441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD420E0C-68E3-42C5-97F8-570E848C5441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD420E0C-68E3-42C5-97F8-570E848C5441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD420E0C-68E3-42C5-97F8-570E848C5441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
